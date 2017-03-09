@@ -9,6 +9,8 @@ interface InboxTable {
    public function getInboxSMS(array $returnColumns, array $selection, array $selectionArgs);
    
    public function updateInboxSMS($smsId, array $columnname, array $columnsvalues);
+   
+   public function deleteInBoxSMS($smsId);
 }
 
 interface OutboxTable {
@@ -22,6 +24,8 @@ interface OutboxTable {
    public function updateOutboxSMS($smsId, array $columnname, array $columnsvalues);
    
    public function deleteOutBoxSMS($smsId);
+   
+   public function addOutboxSMS(array $columnname, array $columnsvalues);
 }
 
 interface SentItemsTable {
@@ -35,6 +39,8 @@ interface SentItemsTable {
    public function updateSentSMS($smsId, array $columnname, array $columnsvalues);
    
    public function deleteSentSMS($smsId);
+   
+   public function addSentSMS(array $columnname, array $columnsvalues);
 }
 
 interface MembersInterface {

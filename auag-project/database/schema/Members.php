@@ -1,9 +1,11 @@
 <?php
 
-require '../database.php';
-require '../AppDatabase.php';
-require '../QueryBuilder.php';
-require '../TableInterfaces.php';
+//$rootDoc = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+//
+//require $rootDoc.'/auag-project/database/database.php';
+//require $rootDoc.'/auag-project/database/AppDatabase.php';
+//require $rootDoc.'/auag-project/database/QueryBuilder.php';
+//require $rootDoc.'/auag-project/database/TableInterfaces.php';
 
 class Members implements MembersInterface{
     
@@ -87,27 +89,27 @@ class Members implements MembersInterface{
 /**
  * Codes for testing the file
  */
-$members = new Members();
-
-if ($members->dbconnect() == 1){
-    echo 'Connected<br>';
-} else {
-    echo 'Could not connect<br>';
-}
-
-$res = $members->addMember(array(DatabaseConfig::$members_phonenumber, 
-    DatabaseConfig::$members_firstname, 
-    DatabaseConfig::$members_lastname,
-    DatabaseConfig::$members_Password,
-    DatabaseConfig::$members_shares,
-    DatabaseConfig::$members_currency),
-    array("+2557547111111","Adelina", "Kishimbo", "123456","20000", "Tsh" ));
+//$members = new Members();
 //
-if ($res === 1){
-    echo 'Record was was added<br>';
-} else {
-    echo 'Failed<br>';
-}
+//if ($members->dbconnect() == 1){
+//    echo 'Connected<br>';
+//} else {
+//    echo 'Could not connect<br>';
+//}
+//
+//$res = $members->addMember(array(DatabaseConfig::$members_phonenumber, 
+//    DatabaseConfig::$members_firstname, 
+//    DatabaseConfig::$members_lastname,
+//    DatabaseConfig::$members_Password,
+//    DatabaseConfig::$members_shares,
+//    DatabaseConfig::$members_currency),
+//    array("+2557547111111","Adelina", "Kishimbo", "123456","20000", "Tsh" ));
+////
+//if ($res === 1){
+//    echo 'Record was was added<br>';
+//} else {
+//    echo 'Failed<br>';
+//}
 //$r = $members->deleteMemberById(24);
 //if ($r === 1){
 //    echo 'Record was deleted<br>';

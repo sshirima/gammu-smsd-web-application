@@ -1,8 +1,10 @@
 <?php
-require '../database.php';
-require '../AppDatabase.php';
-require '../QueryBuilder.php';
-require '../TableInterfaces.php';
+//$rootDoc = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+//
+//require $rootDoc.'/auag-project/database/database.php';
+//require $rootDoc.'/auag-project/database/AppDatabase.php';
+//require $rootDoc.'/auag-project/database/QueryBuilder.php';
+//require $rootDoc.'/auag-project/database/TableInterfaces.php';
 
 class OutboxItems implements OutboxTable{
     
@@ -65,6 +67,14 @@ class OutboxItems implements OutboxTable{
         
        return $this->_database->updateData($updatequery);
         
+    }
+
+    public function addOutboxSMS(array $columnname, array $columnsvalues) {
+        $queryBuilder = new MySqlQuery();
+        
+        $insertquery = $queryBuilder->insertQuery($this->_tablename, $columnname, $columnsvalues);
+        
+        return $this->_database->insertData($insertquery);
     }
 
 }
