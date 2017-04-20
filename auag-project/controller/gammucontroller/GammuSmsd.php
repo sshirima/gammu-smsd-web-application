@@ -1,35 +1,18 @@
 <?php
 
 $rootDoc = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-require $rootDoc.'controller/gammucontroller/GammuConfigs.php';
+require_once $rootDoc.'/auag-project/controller/gammucontroller/GammuConfigs.php';
 
 class GammuSmsd{
     
-    var $processId;
+    var $Phones;
     
-    function pause(){
-        $this->getProccessID();
-        $exec = SmsdConfig::$command_Pause. ' '.$this->processId;
-        $this->executeCmd($exec);
+    public function __construct() {
+        $this->Phones = new Phones();
     }
     
-    function getProccessID(){
-        $exec = SmsdConfig::$command_getPID.' '. SmsdConfig::$GAMMU_SMSD_DIR;
-        $this->processId = $this->executeCmd($exec);
-    }
-        
-    function resume(){
-        $this->getProccessID();
-        $exec = SmsdConfig::$command_Resume. ' '.$this->processId;
-        $this->executeCmd($exec);
+    public function getModemDetails(){
+        return $this->Phones->getAllPhones(array('*'));
     }
     
-    function executeCmd($exec){
-        $response = exec($exec);
-        return $response;
-    }
 }
-
-//$smsd = new GammuSmsd();
-//
-//$smsd->resume();

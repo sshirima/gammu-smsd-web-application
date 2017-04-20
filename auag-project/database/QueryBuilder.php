@@ -42,7 +42,7 @@ class MySqlQuery {
 
     public function selectQuery($tablename, array $returncolums, array $selection, array $selectionArgs) {
 
-        $condition = "(%s = '%s')";
+        $condition_format = "(%s = '%s')";
         $ret_col = " %s ";
 
         if ((count($selectionArgs) === count($selection)) && (count($selection) >= 1) && (count($returncolums) >= 1)) {
@@ -50,9 +50,9 @@ class MySqlQuery {
             for ($index = 0; $index < count($selection); $index++) {
 
                 if ($index === 0) {
-                    $condition = sprintf($condition, $selection[0], $selectionArgs[0]);
+                    $condition = sprintf($condition_format, $selection[0], $selectionArgs[0]);
                 } else {
-                    $condition = $condition . sprintf(self::$_QRY_EXPR_AND . $condition, $selection[$index], $selectionArgs[$index]);
+                    $condition = $condition . sprintf(self::$_QRY_EXPR_AND . $condition_format, $selection[$index], $selectionArgs[$index]);
                 }
             }
             for ($i = 0; $i < count($returncolums); $i++) {

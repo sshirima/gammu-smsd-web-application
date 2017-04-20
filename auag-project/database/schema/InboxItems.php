@@ -1,11 +1,11 @@
 <?php
 
-//$rootDoc = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-//
-//require $rootDoc.'/auag-project/database/database.php';
-//require $rootDoc.'/auag-project/database/AppDatabase.php';
-//require $rootDoc.'/auag-project/database/QueryBuilder.php';
-//require $rootDoc.'/auag-project/database/TableInterfaces.php';
+$rootDoc = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+
+require_once $rootDoc.'/auag-project/database/database.php';
+require_once $rootDoc.'/auag-project/database/AppDatabase.php';
+require_once $rootDoc.'/auag-project/database/QueryBuilder.php';
+require_once $rootDoc.'/auag-project/database/TableInterfaces.php';
 
 class InboxItems implements InboxTable {
     

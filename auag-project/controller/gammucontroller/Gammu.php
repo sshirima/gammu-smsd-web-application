@@ -1,6 +1,7 @@
 <?php
 
-require './GammuConfigs.php';
+$rootDoc = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+
 
 class Gammu {
 

@@ -58,3 +58,33 @@ interface MembersInterface {
    public function addMember(array $columnname, array $columnsvalues);
 }
 
+interface PhonesInterface {
+    
+   public function dbconnect(); 
+    
+   public function getAllPhones(array $returnColumns);
+}
+
+interface CommandsInterface {
+    
+   public function dbconnect(); 
+    
+   public function getAllCommands(array $returnColumns);
+   public function addCommand(array $columnname, array $columnsvalues);
+   public function getCommand(array $returnColumns, array $selection, array $selectionArgs);
+   public function updateCommand($commandId, array $columnname, array $columnsvalues);
+   public function deleteCommand($commandId);
+   
+}
+interface ActionsInterface {
+    
+   public function dbconnect(); 
+    
+   public function getAllActions(array $returnColumns);
+   public function addAction(array $columnname, array $columnsvalues);
+   public function getAction(array $returnColumns, array $selection, array $selectionArgs);
+   public function updateAction($actionId, array $columnname, array $columnsvalues);
+   public function deleteAction($actionId);
+   
+}
+

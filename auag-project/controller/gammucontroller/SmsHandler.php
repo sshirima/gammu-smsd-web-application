@@ -1,9 +1,9 @@
 <?php
 
 $rootDoc = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-require $rootDoc.'controller/gammucontroller/Gammu.php';
-require $rootDoc.'/auag-project/database/schema/OutboxItems.php';
-require $rootDoc.'/auag-project/database/schema/SentItems.php';
+require_once $rootDoc.'controller/gammucontroller/Gammu.php';
+require_once $rootDoc.'/auag-project/database/schema/OutboxItems.php';
+require_once $rootDoc.'/auag-project/database/schema/SentItems.php';
 
 class SMSHandler{
     

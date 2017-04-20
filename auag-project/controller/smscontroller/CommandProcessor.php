@@ -11,59 +11,58 @@
  *
  * @author shirima
  */
+require_once $rootDoc . '/auag-project/database/schema/Actions.php';
+require_once $rootDoc . '/auag-project/database/schema/Members.php';
+
 class CommandProcessor {
-    
+
     var $inboxTable;
     var $outboxTable;
     var $memberTable;
-    
-     public function __construct() {
-        $this->inboxTable = new InboxItems();
-        $this->outboxTable = new OutboxItems();
+    var $actiontable;
+
+    public function __construct() {
+        $this->actiontable = new ActionsTable();
         $this->memberTable = new Members();
-     }
-    
-    public function commandCheckShares($parameter1, $parameter2){
-        $replymsg = '';
-        
-        $resp = $this->memberTable->getMember(array("*"),
-                array(DatabaseConfig::$members_phonenumber, DatabaseConfig::$members_Password), 
-                array($parameter1, $parameter2));
-        
-        if (count($resp) === 1){
-            $shares = $resp[0][DatabaseConfig::$members_shares];
-            $replymsg = sprintf(SMSReplies::$reply_shares_success, $shares);
-        } else {
-            $replymsg = SMSReplies::$reply_shares_error;
-        } 
-        return $replymsg;
     }
-    
-    public function commandChangePassword($phoneNumber, $oldpassword, $newpasswod, $repeatPassword){
-        $replymsg = '';
-        
-        if ($newpasswod === $repeatPassword) {
 
-            // Check if the password is valid
-            $resp = $this->memberTable->getMember(array("*"), array(DatabaseConfig::$members_phonenumber, DatabaseConfig::$members_Password), array($phoneNumber, $oldpassword));
+    public function getValuesToReturn($command) {
 
-            if (count($resp) === 1) {
-                $memberId = $resp[0][DatabaseConfig::$members_id];
+        //Get action from command keyword
+        $q1 = "SELECT action_returncolumn, action_description FROM commands INNER JOIN actions ON cmd_actionname LIKE action_name WHERE cmd_keyword LIKE '" . $command . "' ";
 
-                $r = $this->memberTable->updateMember($memberId, array(DatabaseConfig::$members_Password), array($newpasswod));
-                if ($r === 1) {
-                    $replymsg = sprintf(SMSReplies::$reply_success_passchange, $newpasswod);
-                } else {
-                    $replymsg = SMSReplies::$reply_error_passchange_failtochange;
-                }
+        return $this->actiontable->rawQuery($q1);
+    }
+
+    public function getReplyMsg($command, $senderNumber, $returnvalues) {
+        $msgreply = '';
+
+        if (!$returnvalues == 0) {
+
+            $returnColm = $returnvalues[0][DatabaseConfig::$action_returncolumn];
+
+            $actiondesc = strtolower($returnvalues[0][DatabaseConfig::$action_description]);
+
+            $q2 = "SELECT *\n"
+                    . "FROM member_command INNER JOIN members ON member_FK = memberID\n"
+                    . "INNER JOIN commands ON command_FK = cmd_id \n"
+                    . "INNER JOIN actions ON cmd_actionname LIKE action_name\n"
+                    . "WHERE members.phonenumber LIKE '" . $senderNumber . "' AND cmd_keyword = '" . $command . "'";
+            $r2 = $this->memberTable->rawQuery($q2);
+
+            if (!$r2 == 0) {
+
+                $value = $r2[0][$returnColm];
+                $msgreply = "Dear member, your " . $actiondesc . " is: " . $value;
+                
             } else {
-                $replymsg = SMSReplies::$reply_error_wrongpass;
+                $msgreply = "You are not registered";
             }
         } else {
-            $replymsg = SMSReplies::$reply_error_passchange_mismatchparameter;
+            $msgreply = 'Command not found!';
         }
         
-        return $replymsg;
+        return $msgreply;
     }
-    
+
 }

@@ -1,11 +1,11 @@
 <?php
 
-//$rootDoc = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-//
-//require $rootDoc.'/auag-project/database/database.php';
-//require $rootDoc.'/auag-project/database/AppDatabase.php';
-//require $rootDoc.'/auag-project/database/QueryBuilder.php';
-//require $rootDoc.'/auag-project/database/TableInterfaces.php';
+$rootDoc = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+
+require_once $rootDoc.'/auag-project/database/database.php';
+require_once $rootDoc.'/auag-project/database/AppDatabase.php';
+require_once $rootDoc.'/auag-project/database/QueryBuilder.php';
+require_once $rootDoc.'/auag-project/database/TableInterfaces.php';
 
 class Members implements MembersInterface{
     
@@ -82,6 +82,16 @@ class Members implements MembersInterface{
                 array($memeberId));
         
        return $this->_database->updateData($updatequery);
+    }
+    
+     public function showMemberColumns(){
+        $query = "show COLUMNS from ".$this->_tablename;
+        
+        return $this->_database->rawQuery($query);
+    }
+    
+    public function rawQuery($query){
+        return $this->_database->rawQuery($query);
     }
 
 }

@@ -93,5 +93,45 @@
     public static $sentitems_TPMR = "TPMR";
     public static $sentitems_CreatorID = "CreatorID";
     public static $sentitems_RelativeValidity = "RelativeValidity";
+    
+    /**
+     * Table Phones and colum names
+     */
+    public static $table_phones = "phones";
+    public static $phone_UpdatedInDB = "UpdatedInDB";
+    public static $phone_InsertIntoDB = "InsertIntoDB";
+    public static $phone_TimeOut = "TimeOut";
+    public static $phone_Send = "Send";
+    public static $phone_Receive = "Receive";
+    public static $phone_IMEI = "IMEI";
+    public static $phone_IMSI = "IMSI";
+    public static $phone_NetCode = "NetCode";
+    public static $phone_NetName = "NetName";
+    public static $phone_Client = "Client";
+    public static $phone_Battery = "Battery";
+    public static $phone_Signal= "Signal";
+    public static $phone_Sent = "Sent";
+    public static $phone_Received = "Received";
+    
+    
+    /**
+     * Table Commands and colum names
+     */
+    public static $table_commands = "commands";
+    public static $commands_id = "cmd_id";
+    public static $commands_keyword = "cmd_keyword";
+    public static $commands_description = "cmd_description";
+    public static $commands_action = "cmd_actionname";
+    /**
+     * Table Actions and colum names
+     */
+    public static $table_actions = "actions";
+    public static $action_id = "action_id";
+    public static $action_name = "action_name";
+    public static $action_description = "action_description";
+    public static $action_returncolumn = "action_returncolumn";
+    
+    public static $columns_field = "Field";
+    
  }
 

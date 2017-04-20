@@ -1,8 +1,9 @@
 <?php
+
 class AppDatabase {
-    
+
     protected $_connection;
-            
+
     public function __construct($servername, $username, $password, $dbname) {
         $this->_serverName = $servername;
         $this->_username = $username;
@@ -24,7 +25,7 @@ class AppDatabase {
         }
         return 1;
     }
-    
+
     // Query onto the database
     public function insertData($insertQuery) {
 
@@ -37,21 +38,19 @@ class AppDatabase {
         if ($this->_connection->query($insertQuery) === TRUE) {
             $this->_connection->close();
             return 1;
-            
         } else {
             return "Error: " . $insertQuery . "<br>" . $this->_connection->error;
-            
         }
-        
+
         $this->_connection->close();
     }
-    
+
     public function updateData($updateQuery) {
-        
+
         $this->_connection = new mysqli($this->_serverName, $this->_username, $this->_password, $this->_dbname);
-        
+
         $returnvalue = "";
-        
+
         if ($this->_connection->connect_error) {
             die("Connection failed: " . $this->_connection->connect_error);
         }
@@ -60,7 +59,7 @@ class AppDatabase {
         } else {
             $returnvalue = "Error updating record: " . $this->_connection->error;
         }
-        
+
         $this->_connection->close();
         return $returnvalue;
     }
@@ -73,27 +72,26 @@ class AppDatabase {
         }
 
         $result = $this->_connection->query($selectQuery);
-        
+
         $returnedResult = array();
-        
+
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $returnedResult[] = $row;
             }
-            
         } else {
-            
+
             return 0;
         }
         $this->_connection->close();
         return $returnedResult;
     }
-    
-    public function deleteData($deleteQuery){
-         $this->_connection = new mysqli($this->_serverName, $this->_username, $this->_password, $this->_dbname);
-        
+
+    public function deleteData($deleteQuery) {
+        $this->_connection = new mysqli($this->_serverName, $this->_username, $this->_password, $this->_dbname);
+
         $returnvalue = "";
-        
+
         if ($this->_connection->connect_error) {
             die("Connection failed: " . $this->_connection->connect_error);
         }
@@ -102,10 +100,32 @@ class AppDatabase {
         } else {
             $returnvalue = "Error updating record: " . $this->_connection->error;
         }
-        
+
         $this->_connection->close();
         return $returnvalue;
     }
 
-}
+    public function rawQuery($query) {
+        $this->_connection = new mysqli($this->_serverName, $this->_username, $this->_password, $this->_dbname);
 
+        if ($this->_connection->connect_error) {
+            die("Connection failed: " . $this->_connection->connect_error);
+        }
+
+        $result = $this->_connection->query($query);
+
+        $returnedResult = array();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $returnedResult[] = $row;
+            }
+        } else {
+
+            return 0;
+        }
+        $this->_connection->close();
+        return $returnedResult;
+    }
+
+}
